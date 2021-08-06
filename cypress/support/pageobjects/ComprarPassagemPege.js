@@ -8,7 +8,10 @@ const passagem = new comprarPassagemElements
 class comprarPassagem {
 
     PrencherEndereco() {
-        cy.get(passagem.EnderecoIda()).type('São paulo')
+        cy.get(passagem.Origem()).click().type('São Paulo')
+        cy.get(passagem.SetOrigem()).click()
+        cy.get(passagem.Destino()).type('Rio de janeiro')
+        cy.get(passagem.SetDestino()).click()
     }
 
     PrencherData() {
