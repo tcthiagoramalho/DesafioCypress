@@ -1,0 +1,11 @@
+{
+    "baseUrl": "https://www.smiles.com.br/home",
+    "viewportWidth":  1024,
+    "viewportHeight": 600, 
+    "defaultCommandTimeout": 5000,
+
+    "reporter": "mochawesome",
+    "reporterOptions": {
+        "overwrite": false
+    }
+}
