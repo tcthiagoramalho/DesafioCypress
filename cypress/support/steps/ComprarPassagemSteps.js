@@ -11,25 +11,22 @@ Given(/^que acesso o site da smiles$/, () => {
 	abrirSite.AbrirBrowser();
 });
 
-When(/^defino os enderecos de partida e de destino$/, () => {
+When(/^defino a origem e o destino$/, () => {
 	passagem.PrencherEndereco();
 });
 
 And(/^defino as datas de partida e de retorno$/, () => {
-
+	passagem.PrencherData();
 });
 
 And(/^seleciono o voo de ida e o voo de volta$/, () => {
-
+	passagem.SelecionarVoo();
 });
 
-Then(/^valido o resumo do pedido$/, () => {
-	return true;
+And(/ˆvalido o resumo do pedido$/, () => {
+	passagem.VizualizarResumo();
+})
+
+Then(/^aceito os termos e continuo$/, () => {
+	passagem.AceitarTermos();
 });
-
-And(/^aceito os termos e continuo$/, () => {
-
-});
-
-
-
