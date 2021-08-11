@@ -3,6 +3,11 @@
 import comprarPassagemElements from "../elements/ComprarPassagemElements";
 
 const element = new comprarPassagemElements
+
+    let valorDeIda = 0
+    let valorDeVolta = 0
+    let valorTotal = 0
+    let valorDaTaxa = 0
 class comprarPassagem {
 
     LocalDaViagem() {
@@ -13,24 +18,24 @@ class comprarPassagem {
     }
 
     PrencherData() {
-        const currentDate = new Date()
+        const dataAtual = new Date()
+        const mesDePartida = dataAtual.getMonth();
+        const dataDePartida = dataAtual.getDate() + 10
+        const mesDeChegada = dataAtual.getMonth();
+        const dataDeChagada = dataAtual.getDate();
+        dataAtual.setDate(dataDePartida + 30);
 
-        const departureMonth = currentDate.getMonth();
-        const departureDate = currentDate.getDate() + 10
-
-        currentDate.setDate(departureDate + 30);
-        const arrivalMonth = currentDate.getMonth();
-        const arrivalDate = currentDate.getDate();
-                
         cy.get(element.AbrirCalendario()).click()
-        cy.get(element.SetDataIda()).contains(departureDate).click({force: true})
-        for (let i = 1; i <= arrivalMonth - departureMonth; i++) {
+
+        cy.get(element.SetDataIda()).contains(dataDePartida).click({force: true})
+        for (let i = 1; i <= mesDeChegada - mesDePartida; i++) {
             cy.get(element.DataVoltaProximoMes()).click({force: true})
         }
-        cy.get(element.SetDataVolta()).contains(arrivalDate).click({force: true})
+        cy.get(element.SetDataVolta()).contains(dataDeChagada).click({force: true})
+
         cy.get(element.ConfirmaData()).click({force: true})
         cy.get(element.BuscarVoos()).click()
-        
+
         cy.get(element.erro()).should('have.class', 'fade') // se tem a class fade é porque não tem erro/está escondido
     }
 
@@ -44,19 +49,12 @@ class comprarPassagem {
         cy.get(element.FormaDePagTaxa()).should('be.checked')
     }
 
-    async VizualizarResumo() {
-        let valorDeIda = 0
-        let valorDeVolta = 0
-        let valorTotal = 0
-        let valorDaTaxa = 0
-
-        const getSomaIdaVolta = () => valorDeIda + valorDeVolta 
-        const getSomaTaxaBilhete = () => valorTotal + valorDaTaxa 
-
+    async ObtervaloresDoBilhete() {
         await cy.get(element.ValorBilheteIda()).invoke('text').then((value) => {
             cy.expect(isNaN(Number(value))).to.be.false
             valorDeIda = Number(value)
             cy.log(valorDeIda)
+            cy.log(value)
             .should('contain', valorDeIda)
         })
 
@@ -64,26 +62,39 @@ class comprarPassagem {
             cy.expect(isNaN(Number(value))).to.be.false
             valorDeVolta = Number(value)
             cy.log(valorDeVolta)
+            cy.log(value)
             .should('contain', valorDeVolta)
         })
-        
+    
         await cy.get(element.ValorTaxaEmbarque()).invoke('text').then((value) => {
             cy.expect(isNaN(Number(value))).to.be.false
             valorDaTaxa = Number(value)
             cy.log(valorDaTaxa)
+            cy.log(value)
             .should('contain', valorDaTaxa)
         })
+    }
+
+    async ValidarTotalDoBilhete() {
+        const getSomaIdaVolta = () => valorDeIda + valorDeVolta 
 
         await cy.get(element.ValorTotalDoBilhete()).invoke('text').then((value) => {
             cy.expect(isNaN(Number(value))).to.be.false
             valorTotal = Number(value)
             cy.log(getSomaIdaVolta())
+            cy.log(value)
             .should('contain', getSomaIdaVolta())
         })
+    }
 
-        cy.get(element.ValorTotal())
-            .log(getSomaTaxaBilhete())
+    async ValidarValorTotal() {
+        const getSomaTaxaBilhete = () => valorTotal + valorDaTaxa 
+
+        await cy.get(element.ValorTotal()).invoke('text').then((value) => {
+            cy.log(value)
+            cy.log(getSomaTaxaBilhete())
             .should('contain', getSomaTaxaBilhete())
+        })
     }
 
     AceitarTermosContinuar() {

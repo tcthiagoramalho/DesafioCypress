@@ -28,7 +28,9 @@ And(/^vizualizo a seleção da taxa com milhas$/, () => {
 });
 
 And(/^valido o resumo do pedido$/, async () => {
-	await passagem.VizualizarResumo();
+	await passagem.ObtervaloresDoBilhete();
+	await passagem.ValidarTotalDoBilhete();
+	await passagem.ValidarValorTotal();
 });
 
 Then(/^aceito os termos e continuo$/, () => {
