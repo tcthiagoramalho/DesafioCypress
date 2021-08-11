@@ -23,9 +23,13 @@ And(/^seleciono o voo de ida e o voo de volta$/, () => {
 	passagem.SelecionarVoo();
 });
 
-And(/ˆvalido o resumo do pedido$/, () => {
+And(/^vizualizo a seleção da taxa com milhas$/, () => {
+	passagem.ViewTaxa();
+});
+
+And(/^valido o resumo do pedido$/, () => {
 	passagem.VizualizarResumo();
-})
+});
 
 Then(/^aceito os termos e continuo$/, () => {
 	passagem.AceitarTermos();
