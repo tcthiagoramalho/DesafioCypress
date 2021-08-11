@@ -2,40 +2,106 @@
 
 import comprarPassagemElements from "../elements/ComprarPassagemElements";
 
-const passagem = new comprarPassagemElements
+const element = new comprarPassagemElements
 
-
+    let valorDeIda = 0
+    let valorDeVolta = 0
+    let valorTotal = 0
+    let valorDaTaxa = 0
 class comprarPassagem {
 
-    PrencherEndereco() {
-        cy.get(passagem.Origem()).type('São Paulo')
-        cy.get(passagem.SetOrigem()).click()
-        cy.get(passagem.Destino()).type('Rio de janeiro')
-        cy.get(passagem.SetDestino()).click()
+    LocalDaViagem() {
+        cy.get(element.Origem()).type('São Paulo')
+        cy.get(element.SetOrigem()).click()
+        cy.get(element.Destino()).type('Rio de janeiro')
+        cy.get(element.SetDestino()).click()
     }
 
     PrencherData() {
-        cy.get(passagem.Calendario()).click()
-        cy.get(passagem.DataIda()).click({force: true})
-        cy.get(passagem.DataVolta()).click({farce: true})
-        cy.get(passagem.ConfirmeData()).click({force: true})
-        cy.get(passagem.BuscarVoo()).click()
+        const dataAtual = new Date()
+        const mesDePartida = dataAtual.getMonth();
+        const dataDePartida = dataAtual.getDate() + 10
+        const mesDeChegada = dataAtual.getMonth();
+        const dataDeChagada = dataAtual.getDate();
+        dataAtual.setDate(dataDePartida + 30);
+
+        cy.get(element.AbrirCalendario()).click()
+
+        cy.get(element.SetDataIda()).contains(dataDePartida).click({force: true})
+        for (let i = 1; i <= mesDeChegada - mesDePartida; i++) {
+            cy.get(element.DataVoltaProximoMes()).click({force: true})
+        }
+        cy.get(element.SetDataVolta()).contains(dataDeChagada).click({force: true})
+
+        cy.get(element.ConfirmaData()).click({force: true})
+        cy.get(element.BuscarVoos()).click()
+
+        cy.get(element.erro()).should('have.class', 'fade') // se tem a class fade é porque não tem erro/está escondido
     }
 
-    SelecionarVoo() {
-        cy.get(passagem.VooIda()).click()
-        cy.get(passagem.VooVolta()).click()
+    SelecionarVoos() {
+        cy.get(element.SelecionarVooDeIda()).click()
+        cy.get(element.SelecionarVooDeVolta()).click()
     }
 
-    VizualizarResumo() {
-
+    ViewTaxa() {
+        cy.scrollTo(0, 1680)
+        cy.get(element.FormaDePagTaxa()).should('be.checked')
     }
 
-    AceitarTermos() {
-        cy.get(passagem.SetTermo()).click()
-        cy.get(passagem.Continuar()).click()
+    async ObtervaloresDoBilhete() {
+        await cy.get(element.ValorBilheteIda()).invoke('text').then((value) => {
+            cy.expect(isNaN(Number(value))).to.be.false
+            valorDeIda = Number(value)
+            cy.log(valorDeIda)
+            cy.log(value)
+            .should('contain', valorDeIda)
+        })
 
-        cy.get(passagem.Login()).should('contain', 'Acesse sua conta')
+        await cy.get(element.ValorBilheteVolta()).invoke('text').then((value) => {
+            cy.expect(isNaN(Number(value))).to.be.false
+            valorDeVolta = Number(value)
+            cy.log(valorDeVolta)
+            cy.log(value)
+            .should('contain', valorDeVolta)
+        })
+    
+        await cy.get(element.ValorTaxaEmbarque()).invoke('text').then((value) => {
+            cy.expect(isNaN(Number(value))).to.be.false
+            valorDaTaxa = Number(value)
+            cy.log(valorDaTaxa)
+            cy.log(value)
+            .should('contain', valorDaTaxa)
+        })
+    }
+
+    async ValidarTotalDoBilhete() {
+        const getSomaIdaVolta = () => valorDeIda + valorDeVolta 
+
+        await cy.get(element.ValorTotalDoBilhete()).invoke('text').then((value) => {
+            cy.expect(isNaN(Number(value))).to.be.false
+            valorTotal = Number(value)
+            cy.log(getSomaIdaVolta())
+            cy.log(value)
+            .should('contain', getSomaIdaVolta())
+        })
+    }
+
+    async ValidarValorTotal() {
+        const getSomaTaxaBilhete = () => valorTotal + valorDaTaxa 
+
+        await cy.get(element.ValorTotal()).invoke('text').then((value) => {
+            cy.log(value)
+            cy.log(getSomaTaxaBilhete())
+            .should('contain', getSomaTaxaBilhete())
+        })
+    }
+
+    AceitarTermosContinuar() {
+        cy.get(element.AceitaTermos()).click()
+        cy.get(element.Continuar()).click()
+
+        cy.get(element.TelaDeLogin()).should('contain', 'Acesse sua conta')
     } 
 }
 
