@@ -12,7 +12,7 @@ Given(/^que acesso o site da smiles$/, () => {
 });
 
 When(/^defino a origem e o destino$/, () => {
-	passagem.PrencherEndereco();
+	passagem.LocalDaViagem();
 });
 
 And(/^defino as datas de partida e de retorno$/, () => {
@@ -20,17 +20,17 @@ And(/^defino as datas de partida e de retorno$/, () => {
 });
 
 And(/^seleciono o voo de ida e o voo de volta$/, () => {
-	passagem.SelecionarVoo();
+	passagem.SelecionarVoos();
 });
 
 And(/^vizualizo a seleção da taxa com milhas$/, () => {
 	passagem.ViewTaxa();
 });
 
-And(/^valido o resumo do pedido$/, () => {
-	passagem.VizualizarResumo();
+And(/^valido o resumo do pedido$/, async () => {
+	await passagem.VizualizarResumo();
 });
 
 Then(/^aceito os termos e continuo$/, () => {
-	passagem.AceitarTermos();
+	passagem.AceitarTermosContinuar();
 });

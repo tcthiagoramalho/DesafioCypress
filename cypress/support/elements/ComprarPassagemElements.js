@@ -4,34 +4,34 @@ class comprarPassagemElements {
     Destino = () => {return '#inputDestination'}
     SetDestino = () => {return '#ulDestinationAirport > :nth-child(1)'}
 
-    Calendario = () => {return '#_smilesflightsearchportlet_WAR_smilesbookingportlet_departure_date'}
-    DataIda = () => {return '.ui-datepicker-group-first > .ui-datepicker-calendar > tbody > :nth-child(3) > :nth-child(1) > .ui-state-default'}
-    DataVolta = () => {return '.ui-datepicker-group-first > .ui-datepicker-calendar > tbody > :nth-child(4) > :nth-child(3) > .ui-state-default'}
-    ConfirmeData = () => {return '.ui-datepicker-current'}
+    AbrirCalendario = () => {return '#_smilesflightsearchportlet_WAR_smilesbookingportlet_departure_date'}
+    SetDataIda = () => {return '.ui-datepicker-group-first > .ui-datepicker-calendar > tbody >'}
+    SetDataVolta = () => {return '.ui-datepicker-group-last > .ui-datepicker-calendar > tbody >'}
+    DataVoltaProximoMes = () => {return '.ui-datepicker-next'}
+    ConfirmaData = () => {return '.ui-datepicker-current'}
 
-    BuscarVoo = () => {return '#submitFlightSearch'}
+    BuscarVoos = () => {return '#submitFlightSearch'}
 
-    VooIda = () => {return '#firstFlights > .segmentsFlightsTemplate > .smiles__flight-search > #flightsArticle0 > :nth-child(4) > .column-miles > .miles > [style="position:relative"] > .checkbox > .flightlb'}
-    VooVolta = () => {return '#secondFlights > .segmentsFlightsTemplate > .smiles__flight-search > #flightsArticle0 > :nth-child(4) > .column-miles > .miles > [style="position:relative"] > .checkbox > .flightlb'}
+    SelecionarVooDeIda = () => {return '#firstFlights > .segmentsFlightsTemplate > .smiles__flight-search > #flightsArticle0 > :nth-child(4) > .column-miles > .miles > [style="position:relative"] > .checkbox > .flightlb'}
+    SelecionarVooDeVolta = () => {return '#secondFlights > .segmentsFlightsTemplate > .smiles__flight-search > #flightsArticle0 > :nth-child(4) > .column-miles > .miles > [style="position:relative"] > .checkbox > .flightlb'}
 
-    Taxa = () => {return 'totalMiles'}
+    FormaDePagTaxa = () => {return '#opt1'}
 
-    SetTermo = () => {return '.terms > label'}
+    AceitaTermos = () => {return '.terms > label'}
     Continuar = () => {return '.button > .btn'}
 
-    Login = () => {return '.main-content > h3'}
+    TelaDeLogin = () => {return '.main-content > h3'}
 
     //validações
-    ValorIda = () => {return '#firstFlights > .segmentsFlightsTemplate > .smiles__flight-search > #flightsArticle0 > :nth-child(4) > .column-miles > .miles > [style="position:relative"]'}
-    ValorVolta = () => {return'#secondFlights > .segmentsFlightsTemplate > .smiles__flight-search > #flightsArticle0 > :nth-child(4) > .column-miles > .miles > [style="position:relative"] > .checkbox > .flightlb'}
-    ValorTotalPassagem = () => {return '.summary-side-fare-miles-total'}
-    ValorTaxa = () => {return '.summary-side-boarding-miles-value'}
-    ValorTotalPedido = () => {return '.summary-side-total-miles'}
+    ValorBilheteIda = () => {return '#firstFlights > .segmentsFlightsTemplate > .smiles__flight-search > #flightsArticle0 > :nth-child(4) > .column-miles > .miles > [style="position:relative"]'}
+    ValorBilheteVolta = () => {return'#secondFlights > .segmentsFlightsTemplate > .smiles__flight-search > #flightsArticle0 > :nth-child(4) > .column-miles > .miles > [style="position:relative"] > .checkbox > .flightlb'}
+    ValorTotalDoBilhete = () => {return '.summary-side-fare-miles-total'}
+    ValorTaxaEmbarque = () => {return '.summary-side-boarding-miles-value'}
+    ValorTotal = () => {return '#summarytotalmilesId'}
 
-    //erros
-    erro = () => {return '#errorModal > .modal-header > h3'}
+    //Mensagens de erros
+    erro = () => {return '#errorModal'}
     btnOkErro = () => {return '#errorModal > .modal-footer > .btn'}
 }
-
 
 export default comprarPassagemElements
