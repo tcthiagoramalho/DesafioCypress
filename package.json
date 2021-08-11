@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "test:chrome": "cypress run --browser chrome --no-exit"
+        "test:chrome": "cypress run --browser chrome"
     },
     "cypress-cucumber-preprocessor": {
         "step_definitions": "cypress/support/steps"

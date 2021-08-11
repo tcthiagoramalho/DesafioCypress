@@ -23,7 +23,7 @@ class comprarPassagemElements {
     TelaDeLogin = () => {return '.main-content > h3'}
 
     //validações
-    ValorBilheteIda = () => {return '#firstFlights > .segmentsFlightsTemplate > .smiles__flight-search > #flightsArticle0 > :nth-child(4) > .column-miles > .miles > [style="position:relative"]'}
+    ValorBilheteIda = () => {return '#firstFlights > .segmentsFlightsTemplate > .smiles__flight-search > #flightsArticle0 > :nth-child(4) > .column-miles > .miles > [style="position:relative"] > .checkbox > .flightlb'}
     ValorBilheteVolta = () => {return'#secondFlights > .segmentsFlightsTemplate > .smiles__flight-search > #flightsArticle0 > :nth-child(4) > .column-miles > .miles > [style="position:relative"] > .checkbox > .flightlb'}
     ValorTotalDoBilhete = () => {return '.summary-side-fare-miles-total'}
     ValorTaxaEmbarque = () => {return '.summary-side-boarding-miles-value'}
@@ -31,7 +31,6 @@ class comprarPassagemElements {
 
     //Mensagens de erros
     erro = () => {return '#errorModal'}
-    btnOkErro = () => {return '#errorModal > .modal-footer > .btn'}
 }
 
 export default comprarPassagemElements
